@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Home Page
+{% endblock title %}
+
+{% block content %}
+    <section>
+        <h1 class="text-center mt-5">Meals</h1>
+        <div class="d-flex flex-wrap gap-2 mt-3 justify-content-center">
+            {% for i in meals %}
+            <div class="card mt-3" style="width: 18rem;">
+                <img src="{{i.strMealThumb}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{i.strMeal}}</h5>
+                    <small class="card-text text-secondary">ID: {{i.idMeal}}</small>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    
+{% endblock content %}
