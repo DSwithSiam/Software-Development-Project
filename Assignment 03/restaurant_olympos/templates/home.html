@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+Home
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="row homepage ">
+    <div class=" col-12 col-md-6 col-lg-6 d-flex flex-wrap text-center px-5 px-md-5 px-lg-5 align-items-center">
+        <div class="container mt-3">
+            <p class="fs-1 fw-bolder ">Enjoy Our <br> Delicious Meal</p>
+            <p class="">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-6 my-5">
+        <div class="d-flex justify-content-center">
+            <img class="w-75" src="{% static 'images/hero.png' %}" alt="">
+        </div>
+    </div>
+</div>
+{% endblock content %}
