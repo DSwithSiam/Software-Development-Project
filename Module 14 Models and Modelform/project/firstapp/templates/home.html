@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+Home
+{% endblock title %}
+
+
+
+{% block content %}
+
+{% if students %}
+<table class="table w-75 m-auto" >
+    <thead>
+        <tr>
+            <th scope="col">Roll</th>
+            <th scope="col">Name</th>
+            <th scope="col">Father name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for td in students %}
+        <tr>
+            <th scope="row">{{td.roll}}</th>
+            <td>{{td.name}}</td>
+            <td>{{td.father_name}}</td>
+            <td>{{td.address}}</td>
+            <td><a class="btn btn-danger text-white"  href="{% url 'delete_student' td.roll %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h1>NO Data</h1>
+{% endif %}
+
+{% endblock content %}

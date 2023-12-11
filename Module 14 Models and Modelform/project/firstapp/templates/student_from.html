@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Student Form
+{% endblock title %}
+
+
+
+{% block content %}
+<form method="post" class="w-50 m-auto">
+    {% csrf_token %}
+    {{form | crispy}}
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+{% endblock content %}
