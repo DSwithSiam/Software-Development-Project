@@ -1,0 +1,33 @@
+{% extends "base.html" %} 
+{% block title %} 
+Home 
+{% endblock title %} 
+
+{% block content %}
+
+<div class="d-flex flex-wrap justify-content-center gap-3 mt-5 ">
+    {% if data %} 
+        {% for post in data %}
+        <div class="col-sm-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"> {{ post.title }} </h5>
+                <p class="card-text"> {{ post.content  }} </p>
+                <p>Author: {{ post.author.name }} </p>
+                <p> Category: 
+                    {% for ct in post.category.all %}
+                    <button class="btn btn-sm m-2 btn-success">{{ ct.name }}</button>
+                    {% endfor %}
+                </p>
+                <a href="{% url 'edit_post' post.id %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'delete_post' post.id %}" class="btn btn-danger mx-2">Delete</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %} 
+    {% else %} 
+        No Data 
+    {% endif %}
+</div>
+
+{% endblock %}
