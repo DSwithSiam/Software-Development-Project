@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+Model
+{% endblock title %}
+
+
+
+{% block content %}
+<form method="post" class="w-50 m-auto">
+    {% csrf_token %}
+    {{ model_form | crispy }}
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+{% endblock content %}

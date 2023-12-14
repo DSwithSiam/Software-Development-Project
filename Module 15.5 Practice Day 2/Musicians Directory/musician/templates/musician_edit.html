@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+Musician Edit Page
+{% endblock title %}
+
+
+
+{% block content %}
+<form method="post" class="mt-5 rounded bg-info  p-4 w-50 m-auto">
+    {% csrf_token %}
+    <h1>Musician Edit</h1>
+    {{from | crispy}}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock content %}

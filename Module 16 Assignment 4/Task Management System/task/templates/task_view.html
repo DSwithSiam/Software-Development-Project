@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+Task Add Page
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-center gap-3 mt-5">
+    {% for data in tasks %}
+    <div class="card" style="width:300px">
+        <div class="card-header text-center fw-bold">
+            <p class="m-0">Task ID: {{data.id}}</p>
+            <small> Assigned Date: {{data.task_assign_date}} </small>
+        </div>           
+        <div class="card-body"> 
+            <p> {{data.task_description | truncatechars:95}} </p>
+        </div>
+        <div class="card-footer"> 
+            Category:
+        {% for c in data.category.all %}    
+         {{c.category_name}},
+        {% endfor %}
+        </div>
+        <p class="mx-3 text-center m-0">
+            {% if not data.is_completed %}
+                <a class="btn btn-secondary btn-sm px-2 mb-3 m-1" href="{% url 'task_edit' data.id %}"> Edit</a>
+                <a class="btn btn-danger btn-sm mx-2 mb-3 m-1"  href="{% url 'task_delete' data.id %}">Delete </a>
+            {% else %}
+                <p class="fw-bold text-white bg-success px-3 rounded t d-flex flex-wrap m-auto p-1">Completed</p>
+            {% endif %}
+        </p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
