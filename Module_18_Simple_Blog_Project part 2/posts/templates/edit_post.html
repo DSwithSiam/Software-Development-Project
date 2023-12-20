@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+Edit Post Page
+{% endblock title %}
+
+
+
+
+{% block content %} 
+
+<form method="post" class="w-50 m-auto  my-5">
+    {% csrf_token %}
+    <h1>Edit Post:</h1>
+    {{ form | crispy }}
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+{% endblock %}

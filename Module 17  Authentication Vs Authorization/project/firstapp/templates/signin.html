@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+Signin
+{% endblock title %}
+
+
+
+{% block content %}
+
+<style>
+    .success{
+        background-color: aqua;
+        color: black;
+    }
+</style>
+
+{% if messages %}
+{% for m in messages %}
+    <div {% if m.tags %} class="{{m.tags}}" {% endif %}>
+        {{ m }}
+    </div>
+  </div>
+{% endfor %}
+{% endif %}
+
+<form method="Post", class="w-50 m-auto" novalidate>
+    {% csrf_token %}
+    <h1>Signin</h1>
+    <!-- {{form | crispy}} -->
+    {% for fm in form %}
+    {{ fm.label_tag }}
+    {{ fm }}
+    {{ fm.errors | striptags }}
+    {% endfor %}
+    <small>Already have an account <a href="{% url 'login' %}">Login</a></small>
+    <br>
+    <button class="btn mt-3 btn-primary" type="submit">Submit</button>
+</form>
+{% endblock content %}
