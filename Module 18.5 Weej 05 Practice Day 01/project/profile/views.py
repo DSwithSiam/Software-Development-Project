@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, SetPasswordForm
 from django.contrib import messages
 # Create your views here.
 
@@ -38,11 +38,23 @@ def user_login(request):
                 return redirect('profile')
     else:
         form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': form, 'type': "Login"})
 
 
 def user_logout(request):
     logout(request)
     messages.success(request, 'Logged out Successful')
     return redirect('user_register')
-    
+
+def pass_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Change Your Password')
+            update_session_auth_hash(request, form.user)
+            return redirect('user_login')
+        
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'login.html', {'form': form, 'type': "Change Password"})
