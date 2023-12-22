@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+Post View
+{% endblock title %}
+
+
+
+
+{% block content %} 
+<div class="col-12">
+    <div class="card">
+      <img class="p-1  m-auto" style="width: 60%; height: 50%" src="{{post.image.url}}" alt="">
+      <div class="card-body">
+        <h1 class="card-title"> {{ post.title }} </h1>
+        <small class="card-text"> {{ post.content }}</small><br><br>
+        <small><b>Author: </b>{{ post.author.first_name }} {{ post.author.last_name }}</small><br>
+        <small>
+            <b>Category: </b>
+            {% for ct in post.category.all %}
+            <p class=" m-1 d-inline ">{{ ct.name }}, </p>
+            {% endfor %}
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div>
+        <form method="post" class="col-10 col-md-5 m-auto my-5">
+            {% csrf_token %}
+            <h1>Edit Post:</h1>
+            {{ comment_form | crispy }}
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <h2 class="m-5">Total comment: {{ comments | length }}</h2>
+    <div class="row m-auto">
+        {% for cmt in comments %}
+        <div class="col-12 col-md-5 pt-5 ps-5">
+            <div class="card p-2">
+                <h5 class="card-header">{{cmt.name}}</h5>
+                <div class="card-body">
+                  <p class="card-text">{{cmt.body}}</p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+    </div>
+
+  </div>
+{% endblock %}

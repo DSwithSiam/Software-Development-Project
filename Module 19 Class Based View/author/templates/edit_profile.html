@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+{{ type }}
+{% endblock title %}
+
+
+
+
+{% block content %} 
+
+<div class="m-5">
+    <h1> Update Your Profile </h1>
+</div>
+
+<form method="post" class="w-50 m-auto  my-5" novalidate>
+    {% csrf_token %}
+    <!-- {{ form | crispy }} -->
+    {% for fm in form %}
+    {{ fm.label_tag }}
+    {{ fm }}
+    <small class="text-danger">{{ fm.errors | striptags }}</small><br>
+    {% endfor %}
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+{% endblock %}

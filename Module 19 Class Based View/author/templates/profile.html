@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+{{ type }}
+{% endblock title %}
+
+
+
+
+{% block content %} 
+
+<div class="m-5">
+    <h1> Profile Page </h1>
+    <a class="btn btn-primary" href="{% url 'edit_profile' %}">Edit Profile</a>
+    <a class="btn btn-primary" href="{% url 'password_change' %}">Change Password</a>
+</div>
+
+<div class="d-flex flex-wrap justify-content-center gap-3 mt-5 ">
+    {% if data %} 
+        {% for post in data %}
+        <div class="col-sm-3">
+            <div class="card">
+              <img class="p-1" style=" height: 230px" src="{{post.image.url}}" alt="">
+              <div class="card-body">
+                <h5 class="card-title"> {{ post.title }} </h5>
+                <small class="card-text"> {{ post.content | truncatechars:130 }}</small><br><br>
+                <small><b>Author: </b>{{ post.author.first_name }} {{ post.author.last_name }}</small><br>
+                <small>
+                    <b>Category: </b>
+                    {% for ct in post.category.all %}
+                    <p class=" m-1 d-inline ">{{ ct.name }}, </p>
+                    
+                    {% endfor %}
+                </small><br>
+                <a href="{% url 'edit_post' post.id %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'delete_post' post.id %}" class="btn btn-danger mx-2">Delete</a>
+              </div>
+            </div>
+        </div>
+        {% endfor %} 
+    {% else %} 
+        No Data 
+    {% endif %}
+</div>
+{% endblock %}

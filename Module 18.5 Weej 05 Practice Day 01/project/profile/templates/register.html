@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+Register
+{% endblock title %}
+
+
+
+{% block content %}
+
+<form class="m-auto w-50 " method="post" novalidate>
+    {% csrf_token %} 
+    <h1>Register</h1>
+    <!-- {{ form | crispy}} -->
+    {% for fm in form %}
+    {{ fm.label_tag }}
+    {{ fm }}
+    <small class="text-danger">{{ fm.errors | striptags }}</small><br>
+    {% endfor %}
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+{% endblock content %}

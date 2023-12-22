@@ -1,0 +1,69 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block title %} 
+Home 
+{% endblock title %} 
+
+{% block content %}
+<div class="row d-flex flex-wrap ">
+    <div class="col-6 p-3">
+        <h1>Wellcome</h1>
+        <P>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat corporis dolor vitae quia nisi, nihil ullam sed fuga ipsum nostrum animi veniam aspernatur possimus omnis quasi veritatis delectus ab quis?</P>
+    </div>
+    <div class="col-6 p-3">
+        <img class="w-100" src="{% static 'images/01.webp' %}" alt="">
+    </div>
+</div>
+<div>
+    <div class="d-flex flex-wrap mt-4 px-2">
+        <div class="col-12 col-md-2 bg-white ">
+            <div class="p-3 ">
+                {% for ct in category %}
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        name="categorie"
+                        id="{{ct.id}}"
+                        checked
+                    >
+                    <label class="form-check-label" for="{{ct.id}}">
+                        <a href="{% url 'category_post' ct.slug %}">{{ ct.name }}</a>
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-12 col-md-10 px-3 py-3">
+            <h4>{{ data | length }} result found</h4>
+            <div class="d-flex flex-wrap gap-3 mt-3 ">
+                {% if data %} 
+            {% for post in data %}
+                <div style="width: 18rem;" class="">
+                    <div class="card">
+                        <a class="card-img" href="{% url 'detail_post' post.id %}">
+                            <img class="p-1 w-100" style=" height: 230px" src="{{post.image.url}}" alt="">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title"> <a class="text-decoration-none" href="{% url 'detail_post' post.id %}"> {{ post.title }} </a> </h5>
+                            <small class="card-text"> {{ post.content | truncatechars:130 }}</small><br><br>
+                            <small><b>Author: </b>{{ post.author.first_name }} {{ post.author.last_name }}</small>
+                            <small>
+                                <b>Category: </b>
+                                {% for ct in post.category.all %}
+                                <p class=" m-1 d-inline ">{{ ct.name }}, </p>
+                                
+                                {% endfor %}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %} 
+        {% else %} 
+            No Data 
+        {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
