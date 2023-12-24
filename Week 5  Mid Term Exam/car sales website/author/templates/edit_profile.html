@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+Edit Profile
+{% endblock title %}
+
+
+
+
+{% block content %} 
+
+<form method="post" class="w-50 m-auto  my-5" novalidate>
+    <div class="bg-white p-4">
+    {% csrf_token %}
+    <h1>Edit Profile</h1>
+    <!-- {{ form | crispy }} -->
+    {% for fm in form %}
+    {{ fm.label_tag }}
+    {{ fm }}
+    <small class="text-danger">{{ fm.errors | striptags }}</small><br>
+    {% endfor %}
+    <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
+
+{% endblock %}

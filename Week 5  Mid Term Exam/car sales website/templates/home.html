@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+Home
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="row  align-items-center"> 
+    <div class="col-12 col-md-6 ">
+        <h1 class=" text-center">Car Shop Bangladesh</h1>
+        <p class="px-5 text-center">All izmostock vehicle images are produced using the best equipment, technology and talent available. With professional photography studios strategically located next to global automotive nerve-centers in the USA and Europe, izmostock covers thousands of popular vehicle models every year.</p>
+    </div>
+    <div class="col-12 col-md-6">
+        <img class="w-100 p-3 " src="{% static 'images/car.png' %}" alt="">
+    </div>
+</div>
+
+<div class="gap-3 d-flex justify-content-center mt-3">
+    {% for b in brand %}
+    <a class="btn btn-outline-primary" href="{% url 'post_filter' b.slug %}">{{ b.brand_name }}</a>
+    {% endfor %}
+</div>
+<div class="mt-4 ">
+    <h2>Total Car Found: {{ data | length }}</h2>
+    <div class="d-flex flex-wrap mt-3 justify-content-center">
+        {% for post in data %}
+        <div style="width: 18rem;" class="p-2" >
+            <div class="card">
+                <img class="p-1 w-100" style=" height: 180px" src="{{ post.car_image.url }}" alt="">
+               
+                <div class="card-body">
+                    <h5 class="card-title text-primary"> {{ post.car_name }} </h5>
+                    <h6>Price: {{ post.car_price }} $</h6>
+                    <h6>Brand: {{ post.car_brand }} </h6>
+                    <div class="d-flex mt-3 justify-content-center">
+                        <a class="btn btn-info" href="{% url 'car_details' post.id %}">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %} 
+    </div>
+</div>
+{% endblock content %}

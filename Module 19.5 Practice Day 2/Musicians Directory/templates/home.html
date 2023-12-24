@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+Home
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="mx-5">
+    <table class="table table-bordered border-dark mt-5">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Musician Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Album Rating</th>
+            <th scope="col">Instrument Type</th>
+            <th scope="col">Album Name</th>
+            <th scope="col">Release Date</th>
+            {% if user.is_authenticated %}
+            <th scope="col">Actions</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+            {% for album in album_data %}
+            
+          <tr>
+            <th> {{forloop.counter}} </th>
+            {% if user.is_authenticated %}
+            <td><a href="{% url 'musician_edit' album.musician.id %}"> {{ album.musician.first_name }} {{ album.musician.last_name }} </a></td>
+            {% else %}
+            <td>{{ album.musician.first_name }} {{ album.musician.last_name }}</td>
+            {% endif %}
+            <td> {{ album.musician.email }} </td>
+            <td> {{ album.rating }}</td>
+            <td> {{ album.musician.instument_type }}</td>
+            <td> {{ album.name }}</td>
+            <td> {{ album.release_date }}</td>
+            {% if user.is_authenticated %}
+            <td> 
+                <p class="m-0">
+                    <a class="btn btn-sm btn-success" href="{% url 'album_edit' album.id %}">Edit</a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'album_delete' album.id %}">Delete</a>
+                </p>
+            </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+</div>
+{% endblock content %}
